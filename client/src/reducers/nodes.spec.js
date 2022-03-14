@@ -94,4 +94,65 @@ describe('Reducers::Nodes', () => {
 
     expect(reducer(appState, action)).toEqual(expected);
   });
+
+  it('should handle GET_NODE_BLOCKS_START', () => {
+    const appState = {
+      list: [nodeA, nodeB]
+    };
+    const action = { type: ActionTypes.GET_NODE_BLOCKS_START, node: nodeA };
+    const expected = {
+      list: [
+        {
+          ...nodeA,
+          blocksLoading: true
+        },
+        nodeB
+      ]
+    };
+
+    expect(reducer(appState, action)).toEqual(expected);
+  });
+
+  it('should handle GET_NODE_BLOCKS_SUCCESS', () => {
+    const appState = {
+      list: [nodeA, nodeB]
+    };
+    const testBlock = {
+      id: 1,
+      text: 'test'
+    }
+    const action = { type: ActionTypes.GET_NODE_BLOCKS_SUCCESS, node: nodeA, res: {blocks: [testBlock]} };
+    const expected = {
+      list: [
+        {
+          ...nodeA,
+          blocks: [testBlock],
+          blocksLoading: false,
+        },
+        nodeB
+      ]
+    };
+
+    expect(reducer(appState, action)).toEqual(expected);
+  });
+
+  it('should handle GET_NODE_BLOCKS_FAILURE', () => {
+    const appState = {
+      list: [nodeA, nodeB]
+    };
+    const action = { type: ActionTypes.GET_NODE_BLOCKS_FAILURE, node: nodeA };
+    const expected = {
+      list: [
+        {
+          ...nodeA,
+          blocksLoading: false,
+          fetchBlocksFailed: true
+        },
+        nodeB
+      ]
+    };
+
+    expect(reducer(appState, action)).toEqual(expected);
+  });
+
 });
