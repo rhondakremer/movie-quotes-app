@@ -20,7 +20,11 @@ export class Nodes extends React.Component {
   }
 
   toggleNodeExpanded(node) {
-    this.props.actions.getNodeBlocks(node)
+    // if the data could change, we wouldn't want this check but since it's static
+    // we don't need to repeat the call if we've fetched the blocks before
+    if (node.blocks?.length < 1) {
+      this.props.actions.getNodeBlocks(node)
+    }
     this.setState({
       expandedNodeID:
         node.id === this.state.expandedNodeID ? null : node.id,

@@ -47,9 +47,17 @@ const Node = ({ node, expanded, toggleNodeExpanded }) => {
         </Box>
       </AccordionSummary>
       <AccordionDetails className={classes.blockWrapper}>
-        {node.blocks?.map(block => {
-          return <Block block={block} />
-        })}
+        {node.blocks?.length > 0 ? (
+          node.blocks?.map(block => {
+            return <Block block={block} />
+          })
+        ) : (
+          node.fetchBlocksFailure ? (
+            <Typography className={classes.errorMessage} variant="body2">There was an error fetching blocks for this movie.</Typography>
+          ) :
+          <Typography variant="body2">There are no available blocks for this movie.</Typography>
+        )}
+
       </AccordionDetails>
     </Accordion>
   );
@@ -101,6 +109,9 @@ const useStyles = makeStyles((theme) => ({
   },
   blockWrapper: {
     display: "block",
+  },
+  errorMessage: {
+    color: colors.danger,
   },
 }));
 

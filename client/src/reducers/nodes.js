@@ -38,7 +38,8 @@ export default function nodesReducer(state = initialState().nodes, action) {
             online: true,
             title: action.res.title,
             loading: false,
-            blocks: action.node.blocks || []
+            blocks: action.node.blocks || [],
+            fetchBlocksFailure: false,
           },
           ...state.list.slice(nodeIndex + 1)
         ];
@@ -67,22 +68,35 @@ export default function nodesReducer(state = initialState().nodes, action) {
         list
       };
     case GET_NODE_BLOCKS_SUCCESS:
-      nodeIndex = state.list.findIndex(p => p.id === action.node.id);
-
-      if (nodeIndex >= 0) {
-        list = [
-          ...state.list.slice(0, nodeIndex),
-          {
-            ...state.list[nodeIndex],
-            blocks: action.res.blocks
-          },
-          ...state.list.slice(nodeIndex + 1)
-        ];
-      }
       return {
         ...state,
-        list
-      };
+        list: state.list.map(node => {
+          // if it's not the node we're looking for, do nothing
+          if (node.id !== action.node.id) {
+            return node
+          }
+          // else we found the right node, add the blocks
+          return {
+            ...node,
+            blocks: action.res.blocks
+          }
+        })
+      }
+    case GET_NODE_BLOCKS_FAILURE:
+      return {
+        ...state,
+        list: state.list.map(node => {
+          // if it's not the node we're looking for, do nothing
+          if (node.id !== action.node.id) {
+            return node
+          }
+          // else we found the right node, add the blocks
+          return {
+            ...node,
+            fetchBlocksFailure: true,
+          }
+        })
+      }
     default:
       return state;
   }

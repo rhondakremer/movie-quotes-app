@@ -23,6 +23,28 @@ const checkNodeStatusFailure = (node) => {
   };
 };
 
+const getNodeBlocksStart = (node) => {
+  return {
+    type: types.GET_NODE_BLOCKS_START,
+    // node,
+  };
+};
+
+const getNodeBlocksSuccess = (node, res) => {
+  return {
+    type: types.GET_NODE_BLOCKS_SUCCESS,
+    node,
+    res,
+  };
+};
+
+const getNodeBlocksFailure = (node) => {
+  return {
+    type: types.GET_NODE_BLOCKS_FAILURE,
+    node,
+  };
+};
+
 export function checkNodeStatus(node) {
   return async (dispatch) => {
     try {
@@ -50,28 +72,6 @@ export function checkNodeStatuses(list) {
     });
   };
 }
-
-const getNodeBlocksStart = (node) => {
-  return {
-    type: types.GET_NODE_BLOCKS_START,
-    node,
-  };
-};
-
-const getNodeBlocksSuccess = (node, res) => {
-  return {
-    type: types.GET_NODE_BLOCKS_SUCCESS,
-    node,
-    res,
-  };
-};
-
-const getNodeBlocksFailure = (node) => {
-  return {
-    type: types.GET_NODE_BLOCKS_FAILURE,
-    node,
-  };
-};
 
 export function getNodeBlocks(node) {
   return async (dispatch) => {
