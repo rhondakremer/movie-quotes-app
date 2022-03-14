@@ -20,6 +20,7 @@ export class Nodes extends React.Component {
   }
 
   toggleNodeExpanded(node) {
+    this.props.actions.getNodeBlocks(node)
     this.setState({
       expandedNodeID:
         node.id === this.state.expandedNodeID ? null : node.id,
