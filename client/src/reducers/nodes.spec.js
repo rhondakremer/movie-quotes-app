@@ -11,13 +11,15 @@ describe('Reducers::Nodes', () => {
   const nodeA = {
     id: 'anchorman',
     online: false,
-    title: null
+    title: null,
+    blocks: [],
   };
 
   const nodeB = {
     id: 'moby-dick',
     online: false,
-    title: null
+    title: null,
+    blocks: [],
   };
 
   it('should set initial state by default', () => {
