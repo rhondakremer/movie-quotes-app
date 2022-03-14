@@ -5,7 +5,7 @@ import colors from "../constants/colors";
 const Block = ({block: {attributes, id}}) => {
   const classes = useStyles();
   return (
-    <Card className={classes.card} key={attributes.hash}>
+    <Card className={classes.card}>
       <Typography className={classes.blue} variant="subtitle1">{id}</Typography>
       <Typography variant="subtitle1">{attributes?.data}</Typography>
     </Card>

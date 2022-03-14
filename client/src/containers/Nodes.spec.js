@@ -52,4 +52,26 @@ describe("<Nodes />", () => {
 
     expect(tree).toMatchSnapshot();
   });
+
+  it("should match snapshot with node blocks", () => {
+    const middlewares = [thunk];
+    nodes.list[0].blocks = [
+      {
+        id: 1,
+        attributes: {
+          data: 'test',
+          hash: 'abc123',
+        }
+      }
+    ]
+    const store = configureMockStore(middlewares)({nodes});
+    const component = create(
+      <Provider store={store}>
+        <ConnectedNodes />
+      </Provider>
+    );
+    const tree = component.toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
 });

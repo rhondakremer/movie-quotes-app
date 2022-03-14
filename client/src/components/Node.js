@@ -56,7 +56,7 @@ const Node = ({ node, expanded, toggleNodeExpanded }) => {
         ) : (
           node.blocks?.length > 0 ? (
             node.blocks.map(block => {
-              return <Block block={block} />
+              return <Block block={block} key={block.attributes?.hash} />
             })
           ) : (
               <Typography className={node.fetchBlocksFailed && classes.errorMessage} variant="body2">{node.fetchBlocksFailed ? 'There was an error fetching blocks for this movie.' : 'There are no available blocks for this movie.'}</Typography>
