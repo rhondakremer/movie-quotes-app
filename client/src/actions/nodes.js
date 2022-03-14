@@ -26,7 +26,7 @@ const checkNodeStatusFailure = (node) => {
 const getNodeBlocksStart = (node) => {
   return {
     type: types.GET_NODE_BLOCKS_START,
-    // node,
+    node,
   };
 };
 

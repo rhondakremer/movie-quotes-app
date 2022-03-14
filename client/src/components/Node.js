@@ -8,6 +8,7 @@ import {
   AccordionDetails,
   makeStyles,
   Box,
+  CircularProgress,
 } from "@material-ui/core";
 import colors from "../constants/colors";
 import Block from "./Block"
@@ -47,17 +48,20 @@ const Node = ({ node, expanded, toggleNodeExpanded }) => {
         </Box>
       </AccordionSummary>
       <AccordionDetails className={classes.blockWrapper}>
-        {node.blocks?.length > 0 ? (
-          node.blocks?.map(block => {
-            return <Block block={block} />
-          })
-        ) : (
-          node.fetchBlocksFailure ? (
-            <Typography className={classes.errorMessage} variant="body2">There was an error fetching blocks for this movie.</Typography>
-          ) :
-          <Typography variant="body2">There are no available blocks for this movie.</Typography>
-        )}
+        {node.blocksLoading ? (
+          <Box display="flex" justifyContent="center">
+            <CircularProgress />
+          </Box>
 
+        ) : (
+          node.blocks?.length > 0 ? (
+            node.blocks.map(block => {
+              return <Block block={block} />
+            })
+          ) : (
+              <Typography className={node.fetchBlocksFailed && classes.errorMessage} variant="body2">{node.fetchBlocksFailed ? 'There was an error fetching blocks for this movie.' : 'There are no available blocks for this movie.'}</Typography>
+          )
+        )}
       </AccordionDetails>
     </Accordion>
   );

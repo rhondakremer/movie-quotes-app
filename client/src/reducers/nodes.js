@@ -2,6 +2,7 @@ import {
   CHECK_NODE_STATUS_START,
   CHECK_NODE_STATUS_SUCCESS,
   CHECK_NODE_STATUS_FAILURE,
+  GET_NODE_BLOCKS_START,
   GET_NODE_BLOCKS_SUCCESS,
   GET_NODE_BLOCKS_FAILURE,
 } from '../constants/actionTypes';
@@ -38,8 +39,6 @@ export default function nodesReducer(state = initialState().nodes, action) {
             online: true,
             title: action.res.title,
             loading: false,
-            blocks: action.node.blocks || [],
-            fetchBlocksFailure: false,
           },
           ...state.list.slice(nodeIndex + 1)
         ];
@@ -67,7 +66,7 @@ export default function nodesReducer(state = initialState().nodes, action) {
         ...state,
         list
       };
-    case GET_NODE_BLOCKS_SUCCESS:
+    case GET_NODE_BLOCKS_START:
       return {
         ...state,
         list: state.list.map(node => {
@@ -75,10 +74,24 @@ export default function nodesReducer(state = initialState().nodes, action) {
           if (node.id !== action.node.id) {
             return node
           }
-          // else we found the right node, add the blocks
+          // else we found the right node, update it
           return {
             ...node,
-            blocks: action.res.blocks
+            blocksLoading: true,
+          }
+        })
+      }
+    case GET_NODE_BLOCKS_SUCCESS:
+      return {
+        ...state,
+        list: state.list.map(node => {
+          if (node.id !== action.node.id) {
+            return node
+          }
+          return {
+            ...node,
+            blocks: action.res.blocks,
+            blocksLoading: false,
           }
         })
       }
@@ -86,14 +99,13 @@ export default function nodesReducer(state = initialState().nodes, action) {
       return {
         ...state,
         list: state.list.map(node => {
-          // if it's not the node we're looking for, do nothing
           if (node.id !== action.node.id) {
             return node
           }
-          // else we found the right node, add the blocks
           return {
             ...node,
-            fetchBlocksFailure: true,
+            fetchBlocksFailed: true,
+            blocksLoading: false,
           }
         })
       }
