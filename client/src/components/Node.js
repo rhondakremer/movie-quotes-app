@@ -10,6 +10,7 @@ import {
   Box,
 } from "@material-ui/core";
 import colors from "../constants/colors";
+import Block from "./Block"
 import Status from "./Status";
 
 const Node = ({ node, expanded, toggleNodeExpanded }) => {
@@ -45,8 +46,10 @@ const Node = ({ node, expanded, toggleNodeExpanded }) => {
           <Status loading={node.loading} online={node.online} />
         </Box>
       </AccordionSummary>
-      <AccordionDetails>
-        <Typography>Blocks go here</Typography>
+      <AccordionDetails className={classes.blockWrapper}>
+        {node.blocks?.map(block => {
+          return <Block block={block} />
+        })}
       </AccordionDetails>
     </Accordion>
   );
@@ -95,6 +98,9 @@ const useStyles = makeStyles((theme) => ({
     fontSize: theme.typography.pxToRem(14),
     color: colors.faded,
     lineHeight: 2,
+  },
+  blockWrapper: {
+    display: "block",
   },
 }));
 
