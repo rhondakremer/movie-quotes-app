@@ -11,7 +11,7 @@ import {
   CircularProgress,
 } from "@material-ui/core";
 import colors from "../constants/colors";
-import Block from "./Block"
+import Block from "./Block";
 import Status from "./Status";
 
 const Node = ({ node, expanded, toggleNodeExpanded }) => {

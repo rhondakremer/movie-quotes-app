@@ -19,7 +19,7 @@ describe("Actions", () => {
   };
 
   const block = {
-    id: 1,
+    id: '1',
     attributes: {
       data: 'test'
     },
