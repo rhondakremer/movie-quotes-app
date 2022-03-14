@@ -18,6 +18,13 @@ describe("Actions", () => {
     title: null,
   };
 
+  const block = {
+    id: 1,
+    attributes: {
+      data: 'test'
+    },
+  }
+
   it("should fetch the node status", async () => {
     mockFetch.mockReturnValueOnce(
       Promise.resolve({
@@ -57,6 +64,52 @@ describe("Actions", () => {
       },
       {
         type: ActionTypes.CHECK_NODE_STATUS_FAILURE,
+        node,
+      },
+    ];
+
+    expect(dispatch.mock.calls.flat()).toEqual(expected);
+  });
+
+  it("should fetch the node blocks", async () => {
+    mockFetch.mockReturnValueOnce(
+      Promise.resolve({
+        status: 200,
+        json() {
+          return Promise.resolve({ blocks: [block] });
+        },
+      })
+    );
+    await ActionCreators.getNodeBlocks(node)(dispatch);
+    const expected = [
+      {
+        type: ActionTypes.GET_NODE_BLOCKS_START,
+        node,
+      },
+      {
+        type: ActionTypes.GET_NODE_BLOCKS_SUCCESS,
+        node,
+        res: { blocks: [block] },
+      },
+    ];
+
+    expect(dispatch.mock.calls.flat()).toEqual(expected);
+  });
+
+  it("should fail to fetch the node blocks", async () => {
+    mockFetch.mockReturnValueOnce(
+      Promise.resolve({
+        status: 400,
+      })
+    );
+    await ActionCreators.getNodeBlocks(node)(dispatch);
+    const expected = [
+      {
+        type: ActionTypes.GET_NODE_BLOCKS_START,
+        node,
+      },
+      {
+        type: ActionTypes.GET_NODE_BLOCKS_FAILURE,
         node,
       },
     ];

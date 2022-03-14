@@ -119,7 +119,9 @@ describe('Reducers::Nodes', () => {
     };
     const testBlock = {
       id: 1,
-      text: 'test'
+      attributes: {
+        data: 'test'
+      }
     }
     const action = { type: ActionTypes.GET_NODE_BLOCKS_SUCCESS, node: nodeA, res: {blocks: [testBlock]} };
     const expected = {
