@@ -7,7 +7,7 @@ const Block = ({block: {attributes, id}}) => {
   const classes = useStyles();
   return (
     <Card className={classes.card}>
-      <Typography className={classes.blue} variant="subtitle1">{id}</Typography>
+      <Typography className={classes.id} variant="subtitle1">{id}</Typography>
       <Typography variant="subtitle1">{attributes?.data}</Typography>
     </Card>
   );
@@ -18,22 +18,23 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: colors.gray,
     display: "block",
     marginBottom: "5px",
-    padding: "5px",
+    padding: "5px 5px 5px 10px",
   },
-  blue: {
-    color: colors.blue
+  id: {
+    color: colors.blue,
+    marginBottom: "-5px",
   }
 }))
 
 Block.propTypes = {
   block: PropTypes.shape({
-    attributes: {
+    attributes: PropTypes.shape({
       data: PropTypes.string,
       hash: PropTypes.string,
       index: PropTypes.number,
       previousHash: PropTypes.string,
       timeStamp: PropTypes.string,
-    },
+    }),
     id: PropTypes.string,
     type: PropTypes.string,
   }).isRequired,

@@ -69,11 +69,10 @@ export default function nodesReducer(state = initialState().nodes, action) {
       return {
         ...state,
         list: state.list.map(node => {
-          // if it's not the node we're looking for, do nothing
+          // if the ids don't match, do not update the node
           if (node.id !== action.node.id) {
             return node
           }
-          // else we found the right node, update it
           return {
             ...node,
             blocksLoading: true,

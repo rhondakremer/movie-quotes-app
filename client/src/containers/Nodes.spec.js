@@ -57,7 +57,7 @@ describe("<Nodes />", () => {
     const middlewares = [thunk];
     nodes.list[0].blocks = [
       {
-        id: 1,
+        id: '1',
         attributes: {
           data: 'test',
           hash: 'abc123',

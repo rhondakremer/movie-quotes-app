@@ -396,7 +396,7 @@ exports[`<Nodes /> should match snapshot with node blocks 1`] = `
                 className="MuiPaper-root MuiCard-root makeStyles-card-30 MuiPaper-elevation1 MuiPaper-rounded"
               >
                 <h6
-                  className="MuiTypography-root makeStyles-blue-31 MuiTypography-subtitle1"
+                  className="MuiTypography-root makeStyles-id-31 MuiTypography-subtitle1"
                 >
                   1
                 </h6>

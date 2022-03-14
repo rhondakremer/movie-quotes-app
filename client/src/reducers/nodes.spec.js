@@ -118,7 +118,7 @@ describe('Reducers::Nodes', () => {
       list: [nodeA, nodeB]
     };
     const testBlock = {
-      id: 1,
+      id: '1',
       attributes: {
         data: 'test'
       }
